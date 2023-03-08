@@ -185,7 +185,7 @@ int main( int argc, char* args[] )
                 SDL_RenderCopy(renderer, character, &game.cc_rect,&game.print);
             else
                 SDL_RenderCopyEx( renderer,character, &game.cc_rect, &game.print, 0, NULL, SDL_FLIP_HORIZONTAL);
-            if(clock()%50==0)
+            if(clock()%40==0)
             {
                 for(int i=0; i<=9; i++)
                 {
