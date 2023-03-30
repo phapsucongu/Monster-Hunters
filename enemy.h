@@ -1,17 +1,18 @@
 #ifndef enemy_h_
 #define enemy_h_
-//const std::string bgname[6]={"bg1.png","bg2.png","bg3.png","bg4.png","bg5.png","bg6.png"};
-#include "draw.h"
-const int e_step=4;
+//#include "draw.h"
+const int e_step=2;
+static int e_num=19;
 class enemy
 {
 public :
-    void spawn(draw nv,int i);
-    void emove(draw nv,int i);
+    void spawn(SDL_Rect print,int i);
+    void emove(SDL_Rect print);
     int x,y,num=0;
-    SDL_Rect e_rect[10],printf[10];
-    int check[10]={0};
-
+    SDL_Rect e_rect[20],printf[20];
+    int check[20]={0};
+    int e_vs_e(int i,int k);
+    bool cmp(int a,int b);
 };
 
 #endif enemy_h_h;

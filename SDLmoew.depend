@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1678088766 source:d:\c++\sdlmoew\draw.cpp
+1679649031 source:d:\c++\sdlmoew\draw.cpp
 	<bits/stdc++.h>
 	<windows.h>
 	<SDL.h>
@@ -11,21 +11,20 @@
 	"gameplay.h"
 	<ctime>
 
-1677907744 d:\c++\sdlmoew\draw.h
+1680138752 d:\c++\sdlmoew\draw.h
+	"enemy.h"
 
-1677913095 source:d:\c++\sdlmoew\enemy.cpp
+1680136606 source:d:\c++\sdlmoew\enemy.cpp
 	<bits/stdc++.h>
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_ttf.h>
 	<SDL_mixer.h>
 	"enemy.h"
-	"draw.h"
 
-1678084167 d:\c++\sdlmoew\enemy.h
-	"draw.h"
+1680137647 d:\c++\sdlmoew\enemy.h
 
-1677913473 source:d:\c++\sdlmoew\gameplay.cpp
+1680140752 source:d:\c++\sdlmoew\gameplay.cpp
 	<bits/stdc++.h>
 	<SDL.h>
 	<SDL_image.h>
@@ -35,7 +34,19 @@
 	"enemy.h"
 	"gameplay.h"
 
-1677908654 d:\c++\sdlmoew\gameplay.h
+1680140557 d:\c++\sdlmoew\gameplay.h
 	"draw.h"
 	"enemy.h"
+
+1680140747 source:d:\c++\sdlmoew\main.cpp
+	<bits/stdc++.h>
+	<windows.h>
+	<SDL.h>
+	<SDL_image.h>
+	<SDL_ttf.h>
+	<SDL_mixer.h>
+	"draw.h"
+	"enemy.h"
+	"gameplay.h"
+	<ctime>
 
