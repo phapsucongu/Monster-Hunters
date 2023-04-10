@@ -8,78 +8,88 @@
 #define fi first
 #define se second
 using namespace std;
-SDL_Rect char_rect,enemy_rect[50];
+int e_map[260][150];
 void enemy::spawn(SDL_Rect print,int i)
 {
     printf[i]={0,0,64,24};
     int x2=0,y2=0;
-    while(1)
+    if(i%4==1)
     {
-        x2=rand()% 1200+40;
-        y2=rand()% 700+10;
-        if(x2!=print.x||y2!=print.y)
-            if(abs(x2-print.x)>=50&&abs(y2-print.y)>=30&&(x2<=300||x2>=900)&&(y2<=200||y2>=500))
-                break;
+        y2=rand()%150 +1;
     }
-    printf[i].x=x2;
-    printf[i].y=y2;
+    if(i%4==2)
+    {
+        x2=260;
+        y2=rand()% 150+1;
+    }
+    if(i%4==3)
+    {
+        x2=rand()% 260+1;
+    }
+    if(i%4==0)
+    {
+        y2=150;
+        x2=rand()%260+1;
+    }
+    printf[i].x=x2*5;
+    printf[i].y=y2*5;
+    for(int i=max(0,x2-2);i>=min(259,x2+2);i++)
+        for(int j=max(0,y2-2);j>=min(149,y2+2);j++)
+            e_map[i][j]=1;
     if(num<=e_num)
         num++;
     //num+=1;
     check[i]=1;
 }
-void enemy::emove(SDL_Rect print)
+void enemy::emove(SDL_Rect print )
 {
     for(int i=0;i<num;i++)
     {
 
-        e_rect[i].x+=576/6;
-        if(e_rect[i].x>=576)
+        e_rect[i].x+=e_w/7;
+        if(e_rect[i].x>=e_w)
             e_rect[i].x=0;
-        //enemy_rect[i]=printf[i]
-        if(1)
+        int r=rand()%10 +1;
+        if(r%3)
         {
-            if(printf[i].x>=print.x&&e_vs_e(i,1))
-            printf[i].x-=e_step;
-            if(printf[i].x<=print.x&&e_vs_e(i,2))
-            printf[i].x+=e_step;
-            if(printf[i].y>=print.y+30&&e_vs_e(i,3))
-                printf[i].y-=e_step/2;
-            if(printf[i].y<=print.y+30&&e_vs_e(i,4))
-                printf[i].y+=e_step/2;
+            if(printf[i].x>print.x)
+                printf[i].x-=e_step;
+            else if(printf[i].x<print.x)
+                printf[i].x+=e_step;
+            else if(printf[i].y>print.y)
+                printf[i].y-=e_step;
+            else
+                printf[i].y+=e_step;
+        }
+        else
+        {
+            if(printf[i].y>print.y)
+                printf[i].y-=e_step;
+            else if(printf[i].y<print.y)
+                printf[i].y+=e_step;
+            else if(printf[i].x>print.x)
+                printf[i].x-=e_step;
+            else
+                printf[i].x+=e_step;
         }
     }
 }
-int enemy::e_vs_e(int i,int k)
+bool enemy::collision (SDL_Rect a,SDL_Rect b)
 {
-    //cout<<i<<" "<<k<<endl;
-    if(k==1)
-    {
-        //if(printf[i].x-e_step-printf[j].x)
-        for(int j=1;j<num;j++)
-            if(j!=i&&abs(printf[i].x-e_step-printf[j].x)<=30&&abs(printf[i].y-printf[j].y)<=15)
-                return 0;
-    }
-    if(k==2)
-    {
-        for(int j=1;j<num;j++)
-            if(j!=i&&(abs(printf[i].x+e_step-printf[j].x)<=30)&&abs(printf[i].y-printf[j].y)<=15)
-                return 0;
-    }
-    if(k==3)
-    {
-        for(int j=1;j<num;j++)
-            if(j!=i&&abs(printf[i].y-e_step/2-printf[j].y)<=15&&abs(printf[i].x-printf[j].x)<=30)
-                return 0;
-    }
-    if(k==4)
-    {
-        for(int j=1;j<num;j++)
-            if(j!=i&&abs(printf[i].y+e_step/2-printf[j].y)<=15&&abs(printf[i].x-printf[j].x)<=30)
-                return 0;
-    }
-    //cout<<" 1"<<endl;
-    return 1;
+
+    a.x+=30;
+    a.w-=60;
+    b.x+=30;
+    b.w-=60;
+    if(a.x>=b.x&&a.x<=b.x+b.w&&a.y>=b.y&&a.y<=b.y+b.h)
+        return 1;
+    if(a.x+a.w>=b.x&&a.x+a.w<=b.x+b.w&&a.y>=b.y&&a.y<=b.y+b.h)
+        return 1;
+    if(a.x>=b.x&&a.x<=b.x+b.w&&a.y+a.h>=b.y&&a.y+a.h<=b.y+b.h)
+        return 1;
+    if(a.x+a.w>=b.x&&a.x+a.w<=b.x+b.w&&a.y+a.h>=b.y&&a.y+a.h<=b.y+b.h)
+        return 1;
+    return 0;
 }
 
 int main()

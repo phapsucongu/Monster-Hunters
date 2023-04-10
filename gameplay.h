@@ -4,10 +4,10 @@
 #include "enemy.h"
 //#include <bits/stdc++.h>
 void destroy(draw &nv,enemy &slime);
-void charmove(SDL_Event e, draw &game,int &sword_time,enemy &slime);
+void charmove(SDL_Event e, draw &game,int &sword_time,enemy &slime,enemy &ghost);
 void sword(enemy &slime, draw &game);
 void collision (draw &nv, enemy &slime);
 int check(SDL_Rect a, SDL_Rect b);
-const int range_attack=50;
+const int range_attack=96;
 
 #endif gameplay_h_h;

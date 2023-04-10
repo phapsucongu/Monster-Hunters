@@ -9,7 +9,6 @@
 #include "gameplay.h"
 #include <ctime>
 using namespace std;
-//int cnt_time, sword_time;
 void draw::nextframe()
 {
     if(action==1)
@@ -38,9 +37,19 @@ void draw::nextframe()
         cc_rect.y=0;
     }
 }
-void draw::left()
+void draw::left(enemy &slime, enemy &ghost)
 {
-    print.x -=step;
+    for(int i=0;i<=e_num;i++)
+    {
+        if(slime.check[i])
+        {
+            slime.printf[i].x+=step;
+        }
+        if(ghost.check[i])
+        {
+            slime.printf[i].x+=step;
+        }
+    }
     movex--;
     if(movex<=-5)
     {
@@ -49,9 +58,19 @@ void draw::left()
         nextframe();
     }
 }
-void draw::right()
+void draw::right(enemy &slime, enemy &ghost)
 {
-    print.x +=step;
+    for(int i=0;i<=e_num;i++)
+    {
+        if(slime.check[i])
+        {
+            slime.printf[i].x-=step;
+        }
+        if(ghost.check[i])
+        {
+            slime.printf[i].x-=step;
+        }
+    }
     movex++;
     if(movex>=5)
     {
@@ -60,9 +79,19 @@ void draw::right()
         nextframe();
     }
 }
-void draw::up()
+void draw::up(enemy &slime, enemy &ghost)
 {
-    print.y -=step;
+    for(int i=0;i<=e_num;i++)
+    {
+        if(slime.check[i])
+        {
+            slime.printf[i].y+=step;
+        }
+        if(ghost.check[i])
+        {
+            slime.printf[i].y+=step;
+        }
+    }
     movey--;
     if(movey<=-5)
     {
@@ -71,9 +100,19 @@ void draw::up()
         nextframe();
     }
 }
-void draw::down()
+void draw::down(enemy &slime, enemy &ghost)
 {
-    print.y +=step;
+    for(int i=0;i<=e_num;i++)
+    {
+        if(slime.check[i])
+        {
+            slime.printf[i].y-=step;
+        }
+        if(ghost.check[i])
+        {
+            slime.printf[i].y-=step;
+        }
+    }
     movey++;
     if(movey>=5)
     {
