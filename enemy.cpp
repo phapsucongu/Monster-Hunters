@@ -4,14 +4,14 @@
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 #include "enemy.h"
-//#include "draw.h"
+#include "draw.h"
 #define fi first
 #define se second
 using namespace std;
 int e_map[260][150];
 void enemy::spawn(SDL_Rect print,int i)
 {
-    printf[i]={0,0,64,24};
+    printf[i]={0,0,30,30};
     int x2=0,y2=0;
     if(i%4==1)
     {
@@ -36,21 +36,28 @@ void enemy::spawn(SDL_Rect print,int i)
     for(int i=max(0,x2-2);i>=min(259,x2+2);i++)
         for(int j=max(0,y2-2);j>=min(149,y2+2);j++)
             e_map[i][j]=1;
-    if(num<=e_num)
+    if(num<=e_num){
         num++;
-    //num+=1;
+    }
     check[i]=1;
 }
-void enemy::emove(SDL_Rect print )
+void enemy::emove(SDL_Rect print,int &health)
 {
+    SDL_Rect rect =print;
+    rect.x+=30;
+    rect.y+=30;
+    rect.w-=60;
+    rect.h-=60;
+    print.x+=print.w/2;
+    print.y+=print.h/2;
     for(int i=0;i<num;i++)
     {
-
-        e_rect[i].x+=e_w/7;
-        if(e_rect[i].x>=e_w)
-            e_rect[i].x=0;
-        int r=rand()%10 +1;
-        if(r%3)
+        if(collision(printf[i],rect)&&check[i]==1)
+        {
+            health--;
+            continue;
+        }
+        if(abs(printf[i].x-print.x)>=abs(printf[i].y-print.y))
         {
             if(printf[i].x>print.x)
                 printf[i].x-=e_step;
@@ -73,14 +80,11 @@ void enemy::emove(SDL_Rect print )
                 printf[i].x+=e_step;
         }
     }
+
 }
 bool enemy::collision (SDL_Rect a,SDL_Rect b)
 {
 
-    a.x+=30;
-    a.w-=60;
-    b.x+=30;
-    b.w-=60;
     if(a.x>=b.x&&a.x<=b.x+b.w&&a.y>=b.y&&a.y<=b.y+b.h)
         return 1;
     if(a.x+a.w>=b.x&&a.x+a.w<=b.x+b.w&&a.y>=b.y&&a.y<=b.y+b.h)

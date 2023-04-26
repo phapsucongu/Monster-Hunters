@@ -5,6 +5,7 @@
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 #include "menu.h"
+#include "enemy.h"
 using namespace std;
 SDL_Texture* bg=NULL;
 SDL_Texture* start=NULL;
@@ -60,4 +61,45 @@ void run_menu(SDL_Renderer* renderer,TTF_Font* font,SDL_Color textColor)
             mouseY = e.button.y;
         }
     }
+}
+void draw_time(SDL_Renderer* renderer,TTF_Font* font,SDL_Color textColor, Uint32 frametime)
+{
+    // Set time clock
+    string text4 = "Time : ";
+    int seconds, minutes;
+    seconds = int(frametime)/1000;
+    minutes = seconds/60;
+    seconds = seconds%60;
+    string str_minutes = to_string(minutes);
+    string str_seconds = to_string(seconds);
+    if(minutes < 10){
+        if(seconds < 10){
+            text4 = text4 +"0"+ str_minutes +":"+ "0" +str_seconds;
+        }
+        else{
+            text4 = text4 +"0"+ str_minutes +":"+ str_seconds;
+        }
+    }
+    else{
+        if(seconds < 10){
+            text4 = text4 + str_minutes +":"+ "0" +str_seconds;
+        }
+        else{
+            text4 = text4 + str_minutes +":"+ str_seconds;
+        }
+    }
+    printText(renderer,text4,600,0,font,textColor);
+
+   // SDL_RenderPresent(renderer);
+}
+void draw_score(SDL_Renderer* renderer,TTF_Font* font,SDL_Color textColor, int score)
+{
+        // Set score:
+    string text3 = "SCORE : ";
+    string temp = to_string(score);
+
+    text3 = text3 + temp;
+
+    printText(renderer,text3,0,0,font,textColor);
+    SDL_RenderPresent(renderer);
 }
