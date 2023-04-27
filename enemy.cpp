@@ -41,7 +41,7 @@ void enemy::spawn(SDL_Rect print,int i)
     }
     check[i]=1;
 }
-void enemy::emove(SDL_Rect print,int &health)
+void enemy::emove(SDL_Rect print,double &health)
 {
     SDL_Rect rect =print;
     rect.x+=30;
@@ -95,7 +95,18 @@ bool enemy::collision (SDL_Rect a,SDL_Rect b)
         return 1;
     return 0;
 }
+void enemy::reset()
+{
+    x,y,num=0;
+     e_rect[e_num+1],printf[e_num+1];
+    for(int i=0;i<=e_num;i++)
+    {
+        check[i]={0};
+        printf[i]={0,0,0,0};
 
+    }
+
+}
 int main()
 {
     return 0;

@@ -134,5 +134,23 @@ void draw::down(enemy &slime, enemy &ghost, enemy &ghost2)
         nextframe();
     }
 }
+void draw::die()
+{
+    cc_rect.y=48*19;
+    if(cc_rect.x<48*6)
+        cc_rect.x+=48;
+    if(t==0)
+        play=0;
+    t--;
+}
+void draw::reset()
+{
+    cc_rect={0,0,55,55},print={640,360,96,96};
+    movex =1,movey=1;
+    action =0;
+    health =50;
+    score = 0;
+    t=100;
+}
 
 

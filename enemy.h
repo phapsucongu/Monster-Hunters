@@ -9,7 +9,8 @@ class enemy
 {
 public :
     void spawn(SDL_Rect print,int i);
-    void emove(SDL_Rect print,int &health);
+    void emove(SDL_Rect print,double &health);
+    void reset();
     int x,y,num=0;
     SDL_Rect e_rect[e_num+1],printf[e_num+1];
     int check[e_num+1]={0};

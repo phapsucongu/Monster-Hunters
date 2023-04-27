@@ -20,10 +20,10 @@ void thanks_mau(SDL_Renderer* renderer,draw &game, SDL_Rect &mau,SDL_Rect &thanh
     }
     mau.y=game.print.y+game.print.h-29;
     mau.h=4;
-    mau.w=game.print.w*game.health/1000-20-10;
+    mau.w=game.print.w*game.health/50-30;
     thanh_mau.h=6;
     thanh_mau.y=game.print.y+game.print.h-30;
-    thanh_mau.w=game.print.w-18-10;
+    thanh_mau.w=game.print.w-28;
     if(mau.w<0){
         mau.w = 0;
     }
@@ -87,7 +87,7 @@ void charmove(SDL_Event e, draw &game,int &sword_time,enemy &slime,enemy &ghost,
         game.nextframe();
         return ;
     }
-    if(sword_time<clock()-500)
+    if(sword_time<clock()-300)
         if(e.type==SDL_MOUSEBUTTONDOWN)
         {
             sword_time=clock();
@@ -97,25 +97,20 @@ void charmove(SDL_Event e, draw &game,int &sword_time,enemy &slime,enemy &ghost,
         }
     if (state[SDL_SCANCODE_LEFT])
     {
-        if(game.print.x>=Left)
+
             game.left(slime,ghost,ghost2);
     }
     if (state[SDL_SCANCODE_RIGHT])
     {
-        if(game.print.x<Right)
-        {
-            game.right(slime,ghost,ghost2);
-        }
+        game.right(slime,ghost,ghost2);
     }
     if (state[SDL_SCANCODE_UP])
     {
-        if(game.print.y>Up)
-            game.up(slime, ghost,ghost2);
+        game.up(slime, ghost,ghost2);
     }
     if (state[SDL_SCANCODE_DOWN])
     {
-        if(game.print.y<Down)
-            game.down(slime,ghost,ghost2);
+       game.down(slime,ghost,ghost2);
     }
     if(SDL_PollEvent(&e))
         if(e.type==SDL_QUIT)
