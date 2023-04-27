@@ -54,7 +54,8 @@ void enemy::emove(SDL_Rect print,double &health)
     {
         if(collision(printf[i],rect)&&check[i]==1)
         {
-            health--;
+            health-=e_dame;
+            cout<<e_dame<<endl;
             continue;
         }
         if(abs(printf[i].x-print.x)>=abs(printf[i].y-print.y))

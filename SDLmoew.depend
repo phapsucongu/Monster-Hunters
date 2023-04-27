@@ -14,7 +14,7 @@
 1682538749 d:\c++\sdlmoew\draw.h
 	"enemy.h"
 
-1682562236 source:d:\c++\sdlmoew\enemy.cpp
+1682625099 source:d:\c++\sdlmoew\enemy.cpp
 	<bits/stdc++.h>
 	<SDL.h>
 	<SDL_image.h>
@@ -23,7 +23,7 @@
 	"enemy.h"
 	"draw.h"
 
-1682562089 d:\c++\sdlmoew\enemy.h
+1682625638 d:\c++\sdlmoew\enemy.h
 
 1682538496 source:d:\c++\sdlmoew\gameplay.cpp
 	<bits/stdc++.h>
@@ -35,11 +35,11 @@
 	"enemy.h"
 	"gameplay.h"
 
-1681655466 d:\c++\sdlmoew\gameplay.h
+1682562764 d:\c++\sdlmoew\gameplay.h
 	"draw.h"
 	"enemy.h"
 
-1682562322 source:d:\c++\sdlmoew\main.cpp
+1682625997 source:d:\c++\sdlmoew\main.cpp
 	<bits/stdc++.h>
 	<windows.h>
 	<SDL.h>
@@ -52,9 +52,9 @@
 	"menu.h"
 	<ctime>
 
-1681655466 d:\c++\sdlmoew\menu.h
+1682625658 d:\c++\sdlmoew\menu.h
 
-1681655466 source:d:\c++\sdlmoew\menu.cpp
+1682626005 source:d:\c++\sdlmoew\menu.cpp
 	<bits/stdc++.h>
 	<windows.h>
 	<SDL.h>
@@ -63,6 +63,7 @@
 	<SDL_mixer.h>
 	"menu.h"
 	"enemy.h"
+	"draw.h"
 
 1681316340 source:c:\users\admin\advprog_ay2223\something-master (1)\something-master\draw.cpp
 	<bits/stdc++.h>

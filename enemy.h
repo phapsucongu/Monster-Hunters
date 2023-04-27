@@ -17,6 +17,7 @@ public :
     int e_vs_e(int i,int k);
     bool cmp(int a,int b);
     bool collision (SDL_Rect a,SDL_Rect b);
+    int e_dame=1;
 };
 //class ghost: public enemy
 #endif enemy_h_h;

@@ -6,12 +6,12 @@
 #include <SDL_mixer.h>
 #include "menu.h"
 #include "enemy.h"
+#include "draw.h"
 using namespace std;
 SDL_Texture* bg=NULL;
-SDL_Texture* start=NULL;
-SDL_Texture* quit=NULL;
-SDL_Rect button1,button2;
-string text= "I've Been Killing Slimes";
+SDL_Texture* op=NULL;
+SDL_Rect but_start,but_option,but_quit,but_info,option_pic,but_easy,but_medium,but_hard;
+string text= "I've Been Killing Monster";
 string text2= "for 300 Years";
 void printText(SDL_Renderer* renderer,string text,int x, int y,TTF_Font* font,SDL_Color textColor)
 {
@@ -26,19 +26,56 @@ void printText(SDL_Renderer* renderer,string text,int x, int y,TTF_Font* font,SD
     SDL_DestroyTexture(texture);
  	SDL_FreeSurface(surface);
 }
-void draw_menu(SDL_Renderer* renderer,TTF_Font* font,SDL_Color textColor)
+void draw_menu(SDL_Renderer* renderer)
 {
-    button1 ={100,350,262,73};
-    button2 ={140,500,180,73};
-    bg=IMG_LoadTexture(renderer,"bg.jpg");
-    start=IMG_LoadTexture(renderer,"start.png");
-    quit=IMG_LoadTexture(renderer,"quit.png");
+    but_start ={470,280,400,110};
+    but_option ={470,425,400,110};
+    but_quit ={470,555,400,110};
+    but_info ={1150,590,65,65};
+    option_pic={305,60,720,621};
+    but_easy = {510,150,300,95};
+    but_medium ={510,320,300,95};
+    but_hard = {510,455,300,95};
+    bg=IMG_LoadTexture(renderer,"menu.png");
+    op=IMG_LoadTexture(renderer,"option.png");
     SDL_RenderCopy(renderer,bg,NULL,NULL);
-    SDL_RenderCopy(renderer,start,NULL,&button1);
-    SDL_RenderCopy(renderer,quit,NULL,&button2);
-    printText(renderer,text,100,100,font,textColor);
-    printText(renderer,text2,200,150,font,textColor);
     SDL_RenderPresent(renderer);
+}
+void option(SDL_Renderer* renderer)
+{
+    int mouseX, mouseY;
+    SDL_Event e;
+    while(1)
+    {
+        SDL_RenderCopy(renderer,bg,NULL,NULL);
+        SDL_RenderCopy(renderer,op,NULL,&option_pic);
+        SDL_RenderPresent(renderer);
+        SDL_PollEvent(&e);
+        if(e.type == SDL_MOUSEBUTTONDOWN&&mouseX>=but_easy.x&&mouseX<=but_easy.x+but_easy.w&&mouseY>=but_easy.y&&mouseY<=but_easy.y+but_easy.h)
+        {
+            e_dame=1;
+            break;
+        }
+        if(e.type == SDL_MOUSEBUTTONDOWN&&mouseX>=but_medium.x&&mouseX<=but_medium.x+but_medium.w&&mouseY>=but_medium.y&&mouseY<=but_medium.y+but_medium.h)
+        {
+            e_dame=2;
+            break;
+        }
+        if(e.type == SDL_MOUSEBUTTONDOWN&&mouseX>=but_hard.x&&mouseX<=but_hard.x+but_hard.w&&mouseY>=but_hard.y&&mouseY<=but_hard.y+but_hard.h)
+        {
+            e_dame=30;
+            cout<<"hard";
+            break;
+        }
+        if(e.type == SDL_MOUSEMOTION)
+        {
+            mouseX = e.button.x;
+            mouseY = e.button.y;
+        }
+        SDL_RenderClear(renderer);
+        SDL_Delay(5);
+    }
+    cout<<e_dame;
 }
 void run_menu(SDL_Renderer* renderer,TTF_Font* font,SDL_Color textColor)
 {
@@ -48,12 +85,12 @@ void run_menu(SDL_Renderer* renderer,TTF_Font* font,SDL_Color textColor)
     while(1)
     {
         SDL_PollEvent(&e);
-        draw_menu(renderer,font,textColor);
-        if(e.type == SDL_MOUSEBUTTONDOWN&&mouseX>=100&&mouseX<=362&&mouseY>=350&&mouseY<=423)
-        {
+        draw_menu(renderer);
+        if(e.type == SDL_MOUSEBUTTONDOWN&&mouseX>=but_start.x&&mouseX<=but_start.x+but_start.w&&mouseY>=but_start.y&&mouseY<=but_start.y+but_start.h)
             break;
-        }
-        if(e.type==SDL_QUIT||e.type == SDL_MOUSEBUTTONDOWN&&mouseX>=140&&mouseX<=320&&mouseY>=500&&mouseY<=573)
+        if(e.type == SDL_MOUSEBUTTONDOWN&&mouseX>=but_option.x&&mouseX<=but_option.x+but_option.w&&mouseY>=but_option.y&&mouseY<=but_option.y+but_option.h)
+            option(renderer);
+        if(e.type==SDL_QUIT||(e.type == SDL_MOUSEBUTTONDOWN&&mouseX>=but_quit.x&&mouseX<=but_quit.x+but_quit.w&&mouseY>=but_quit.y&&mouseY<=but_quit.y+but_quit.h))
             exit(0);
         if(e.type == SDL_MOUSEMOTION)
         {
@@ -61,6 +98,7 @@ void run_menu(SDL_Renderer* renderer,TTF_Font* font,SDL_Color textColor)
             mouseY = e.button.y;
         }
     }
+    //cout<<e_dame;
 }
 void draw_time(SDL_Renderer* renderer,TTF_Font* font,SDL_Color textColor, Uint32 frametime)
 {
@@ -89,12 +127,11 @@ void draw_time(SDL_Renderer* renderer,TTF_Font* font,SDL_Color textColor, Uint32
         }
     }
     printText(renderer,text4,600,0,font,textColor);
-
    // SDL_RenderPresent(renderer);
 }
 void draw_score(SDL_Renderer* renderer,TTF_Font* font,SDL_Color textColor, int score)
 {
-        // Set score:
+    // Set score:
     string text3 = "SCORE : ";
     string temp = to_string(score);
 
