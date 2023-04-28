@@ -11,6 +11,7 @@ using namespace std;
 SDL_Texture* bg=NULL;
 SDL_Texture* op=NULL;
 SDL_Rect but_start,but_option,but_quit,but_info,option_pic,but_easy,but_medium,but_hard;
+int dame::e_dame=1;
 string text= "I've Been Killing Monster";
 string text2= "for 300 Years";
 void printText(SDL_Renderer* renderer,string text,int x, int y,TTF_Font* font,SDL_Color textColor)
@@ -53,20 +54,22 @@ void option(SDL_Renderer* renderer)
         SDL_PollEvent(&e);
         if(e.type == SDL_MOUSEBUTTONDOWN&&mouseX>=but_easy.x&&mouseX<=but_easy.x+but_easy.w&&mouseY>=but_easy.y&&mouseY<=but_easy.y+but_easy.h)
         {
-            e_dame=1;
+            dame::e_dame=1;
             break;
         }
         if(e.type == SDL_MOUSEBUTTONDOWN&&mouseX>=but_medium.x&&mouseX<=but_medium.x+but_medium.w&&mouseY>=but_medium.y&&mouseY<=but_medium.y+but_medium.h)
         {
-            e_dame=2;
+            dame::e_dame=2;
             break;
         }
         if(e.type == SDL_MOUSEBUTTONDOWN&&mouseX>=but_hard.x&&mouseX<=but_hard.x+but_hard.w&&mouseY>=but_hard.y&&mouseY<=but_hard.y+but_hard.h)
         {
-            e_dame=30;
+            dame::e_dame=4;
             cout<<"hard";
             break;
         }
+        if(e.type==SDL_QUIT)
+            exit(0);
         if(e.type == SDL_MOUSEMOTION)
         {
             mouseX = e.button.x;
@@ -75,7 +78,7 @@ void option(SDL_Renderer* renderer)
         SDL_RenderClear(renderer);
         SDL_Delay(5);
     }
-    cout<<e_dame;
+    //cout<<e_dame;
 }
 void run_menu(SDL_Renderer* renderer,TTF_Font* font,SDL_Color textColor)
 {

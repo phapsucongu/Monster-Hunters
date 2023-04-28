@@ -88,27 +88,27 @@ void charmove(SDL_Event e, draw &game,int &sword_time,enemy &slime,enemy &ghost,
         return ;
     }
     if(sword_time<clock()-300)
-        if(e.type==SDL_MOUSEBUTTONDOWN)
+        if(e.type==SDL_MOUSEBUTTONDOWN||state[SDL_SCANCODE_SPACE])
         {
             sword_time=clock();
             sword(slime,game);
             sword(ghost,game);
             sword(ghost2,game);
         }
-    if (state[SDL_SCANCODE_LEFT])
+    if (state[SDL_SCANCODE_LEFT]||state[SDL_SCANCODE_A])
     {
 
             game.left(slime,ghost,ghost2);
     }
-    if (state[SDL_SCANCODE_RIGHT])
+    if (state[SDL_SCANCODE_RIGHT]||state[SDL_SCANCODE_D])
     {
         game.right(slime,ghost,ghost2);
     }
-    if (state[SDL_SCANCODE_UP])
+    if (state[SDL_SCANCODE_UP]||state[SDL_SCANCODE_W])
     {
         game.up(slime, ghost,ghost2);
     }
-    if (state[SDL_SCANCODE_DOWN])
+    if (state[SDL_SCANCODE_DOWN]||state[SDL_SCANCODE_S])
     {
        game.down(slime,ghost,ghost2);
     }

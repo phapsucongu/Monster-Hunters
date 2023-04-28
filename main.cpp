@@ -149,7 +149,7 @@ int main( int argc, char* args[] )
                 game.play=1;
                 framestart = SDL_GetTicks();
             }
-            cout<<e_dame<<endl;
+            //cout<<e_dame<<endl;
             if(game.health<=0)
             {
                 end_game();

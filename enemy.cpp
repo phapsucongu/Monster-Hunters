@@ -5,6 +5,7 @@
 #include <SDL_mixer.h>
 #include "enemy.h"
 #include "draw.h"
+#include "menu.h"
 #define fi first
 #define se second
 using namespace std;
@@ -54,8 +55,7 @@ void enemy::emove(SDL_Rect print,double &health)
     {
         if(collision(printf[i],rect)&&check[i]==1)
         {
-            health-=e_dame;
-            cout<<e_dame<<endl;
+            health-=dame::e_dame;
             continue;
         }
         if(abs(printf[i].x-print.x)>=abs(printf[i].y-print.y))
@@ -85,7 +85,10 @@ void enemy::emove(SDL_Rect print,double &health)
 }
 bool enemy::collision (SDL_Rect a,SDL_Rect b)
 {
-
+    a.x+=10;
+    a.w-=20;
+    a.y+=10;
+    a.h-=20;
     if(a.x>=b.x&&a.x<=b.x+b.w&&a.y>=b.y&&a.y<=b.y+b.h)
         return 1;
     if(a.x+a.w>=b.x&&a.x+a.w<=b.x+b.w&&a.y>=b.y&&a.y<=b.y+b.h)
