@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1682562067 source:d:\c++\sdlmoew\draw.cpp
+1682959206 source:d:\c++\sdlmoew\draw.cpp
 	<bits/stdc++.h>
 	<windows.h>
 	<SDL.h>
@@ -26,7 +26,7 @@
 
 1682957452 d:\c++\sdlmoew\enemy.h
 
-1682957342 source:d:\c++\sdlmoew\gameplay.cpp
+1682959230 source:d:\c++\sdlmoew\gameplay.cpp
 	<bits/stdc++.h>
 	<SDL.h>
 	<SDL_image.h>
@@ -40,7 +40,7 @@
 	"draw.h"
 	"enemy.h"
 
-1682957504 source:d:\c++\sdlmoew\main.cpp
+1682959476 source:d:\c++\sdlmoew\main.cpp
 	<bits/stdc++.h>
 	<windows.h>
 	<SDL.h>
