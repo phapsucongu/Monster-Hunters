@@ -86,7 +86,7 @@ void sword(enemy &slime, draw &game)
 void charmove(SDL_Event e, draw &game,int &sword_time,enemy &slime,enemy &ghost, enemy &ghost2)
 {
     SDL_PollEvent(&e);
-    if(game.action==1)
+    if(game.action)
     {
         game.nextframe();
         return ;

@@ -11,7 +11,7 @@
 using namespace std;
 void draw::nextframe()
 {
-    if(action==1)
+    if(action)
     {
         cc_rect.y=48*6-5;
         cc_rect.x+=48;

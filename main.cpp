@@ -209,7 +209,10 @@ int main( int argc, char* args[] )
                 continue;
             }
             if(game.action==1){
+                Mix_HaltChannel(-1);
                 Mix_PlayChannel( -1, sword_sound, 0 );
+                game.action==2;
+                cout<<1;
             }
             render();
             if(clock()-20>=cnt_time)
