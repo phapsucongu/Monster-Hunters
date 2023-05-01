@@ -19,6 +19,7 @@ SDL_Texture* e_slime=NULL;
 SDL_Texture* e_ghost=NULL;
 SDL_Texture* e_ghost2=NULL;
 Mix_Music* gmusic=NULL;
+Mix_Music* sword_sound = NULL;
 TTF_Font* font=NULL;
 SDL_Color textColor = {255, 255, 255};
 draw game;
@@ -125,6 +126,7 @@ int main( int argc, char* args[] )
     }
     else
     {
+        sword_sound = Mix_LoadMUS("sword_sound.mp3");
         renderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
         character =IMG_LoadTexture(renderer,"char.png");
         e_slime =IMG_LoadTexture(renderer,"ghost.png");
@@ -132,6 +134,7 @@ int main( int argc, char* args[] )
         e_ghost2 = IMG_LoadTexture(renderer,"monster.png");
         SDL_QueryTexture(e_slime,0,0,&C_rect.w,&C_rect.h);
         SDL_Event e;
+        SDL_PollEvent(&e);
         for(int i=0; i<e_num; i++)
         {
             slime.e_rect[i]= {0,0,C_rect.w/6,C_rect.h};
@@ -149,7 +152,7 @@ int main( int argc, char* args[] )
                 game.play=1;
                 framestart = SDL_GetTicks();
             }
-            cout<<e_dame<<endl;
+            //cout<<e_dame<<endl;
             if(game.health<=0)
             {
                 end_game();
@@ -169,6 +172,9 @@ int main( int argc, char* args[] )
             draw_time(renderer,font,textColor,frametime);
             SDL_RenderPresent(renderer);
             charmove(e,game,sword_time,slime, ghost, ghost2);
+            if(game.action==1){
+                Mix_PlayMusic(sword_sound,0);
+            }
             if(clock()-20>=cnt_time)
             {
                 cnt_time=clock();
