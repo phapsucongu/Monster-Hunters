@@ -4,7 +4,11 @@
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 #include "enemy.h"
+<<<<<<< HEAD
 #include "draw.h"
+=======
+#include "draw.h"
+>>>>>>> 988f14395bf77f2808985f0f0212804cf2171e8a
 #include "menu.h"
 #define fi first
 #define se second
@@ -52,11 +56,19 @@ void enemy::emove(SDL_Rect print,double &health)
     print.x+=print.w/2;
     print.y+=print.h/2;
     for(int i=0;i<num;i++)
+<<<<<<< HEAD
     {
         if(collision(printf[i],rect)&&check[i]==1)
         {
             health-=dame::e_dame;
             continue;
+=======
+    {
+        if(collision(printf[i],rect)&&check[i]==1)
+        {
+            health-=dame::e_dame;
+            continue;
+>>>>>>> 988f14395bf77f2808985f0f0212804cf2171e8a
         }
         if(abs(printf[i].x-print.x)>=abs(printf[i].y-print.y))
         {
@@ -85,9 +97,15 @@ void enemy::emove(SDL_Rect print,double &health)
 }
 bool enemy::collision (SDL_Rect a,SDL_Rect b)
 {
+<<<<<<< HEAD
     a.x+=10;
     a.w-=20;
     a.y+=10;
+=======
+    a.x+=10;
+    a.w-=20;
+    a.y+=10;
+>>>>>>> 988f14395bf77f2808985f0f0212804cf2171e8a
     a.h-=20;
     if(a.x>=b.x&&a.x<=b.x+b.w&&a.y>=b.y&&a.y<=b.y+b.h)
         return 1;
