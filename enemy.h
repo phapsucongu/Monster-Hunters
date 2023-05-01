@@ -1,8 +1,8 @@
 #ifndef enemy_h_
 #define enemy_h_
 //#include "draw.h"
-const int e_step=2;
-static const int e_num=1000;
+//const int e_step=2;
+static const int e_num=3000;
 static int time_spawn =2000;
 static int e_w=672,e_h=32;
 class enemy
@@ -15,9 +15,9 @@ public :
     SDL_Rect e_rect[e_num+1],printf[e_num+1];
     int check[e_num+1]={0};
     int e_vs_e(int i,int k);
+    int e_health=1;
     bool cmp(int a,int b);
     bool collision (SDL_Rect a,SDL_Rect b);
-    int e_dame=1;
 };
 //class ghost: public enemy
 #endif enemy_h_h;

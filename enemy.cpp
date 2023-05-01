@@ -5,6 +5,7 @@
 #include <SDL_mixer.h>
 #include "enemy.h"
 #include "draw.h"
+#include "menu.h"
 #define fi first
 #define se second
 using namespace std;
@@ -39,7 +40,7 @@ void enemy::spawn(SDL_Rect print,int i)
     if(num<=e_num){
         num++;
     }
-    check[i]=1;
+    check[i]=e_health;
 }
 void enemy::emove(SDL_Rect print,double &health)
 {
@@ -54,38 +55,40 @@ void enemy::emove(SDL_Rect print,double &health)
     {
         if(collision(printf[i],rect)&&check[i]==1)
         {
-            health-=e_dame;
-            cout<<e_dame<<endl;
+            health-=dame::e_dame;
             continue;
         }
         if(abs(printf[i].x-print.x)>=abs(printf[i].y-print.y))
         {
             if(printf[i].x>print.x)
-                printf[i].x-=e_step;
+                printf[i].x-=dame::e_step;
             else if(printf[i].x<print.x)
-                printf[i].x+=e_step;
+                printf[i].x+=dame::e_step;
             else if(printf[i].y>print.y)
-                printf[i].y-=e_step;
+                printf[i].y-=dame::e_step;
             else
-                printf[i].y+=e_step;
+                printf[i].y+=dame::e_step;
         }
         else
         {
             if(printf[i].y>print.y)
-                printf[i].y-=e_step;
+                printf[i].y-=dame::e_step;
             else if(printf[i].y<print.y)
-                printf[i].y+=e_step;
+                printf[i].y+=dame::e_step;
             else if(printf[i].x>print.x)
-                printf[i].x-=e_step;
+                printf[i].x-=dame::e_step;
             else
-                printf[i].x+=e_step;
+                printf[i].x+=dame::e_step;
         }
     }
 
 }
 bool enemy::collision (SDL_Rect a,SDL_Rect b)
 {
-
+    a.x+=10;
+    a.w-=20;
+    a.y+=10;
+    a.h-=20;
     if(a.x>=b.x&&a.x<=b.x+b.w&&a.y>=b.y&&a.y<=b.y+b.h)
         return 1;
     if(a.x+a.w>=b.x&&a.x+a.w<=b.x+b.w&&a.y>=b.y&&a.y<=b.y+b.h)

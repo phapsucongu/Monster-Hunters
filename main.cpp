@@ -19,7 +19,7 @@ SDL_Texture* e_slime=NULL;
 SDL_Texture* e_ghost=NULL;
 SDL_Texture* e_ghost2=NULL;
 Mix_Music* gmusic=NULL;
-Mix_Music* sword_sound = NULL;
+Mix_Chunk* sword_sound=NULL;
 TTF_Font* font=NULL;
 SDL_Color textColor = {255, 255, 255};
 draw game;
@@ -41,7 +41,8 @@ bool init()
     else
         gWindow = SDL_CreateWindow( "I've Been Killing Slimes for 300 Years", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
     gmusic = Mix_LoadMUS("music.mp3");
-    font = TTF_OpenFont("SFUFuturaBold.TTF",50);
+    font = TTF_OpenFont("ThaleahFat.ttf",50);
+    sword_sound = Mix_LoadWAV("sword_sound.wav");
     return success;
 }
 void spawn_enemy(enemy &slime, enemy &ghost, enemy &ghost2)
@@ -117,6 +118,52 @@ void end_game()
     ghost2.reset();
 
 }
+void render()
+{
+    Uint32 frametime = SDL_GetTicks() - framestart;
+    SDL_SetRenderDrawColor(renderer,240, 189, 199, 1 );
+    SDL_RenderFillRect(renderer,NULL);
+    if(game.movex>0)
+        SDL_RenderCopy(renderer, character, &game.cc_rect,&game.print);
+    else
+        SDL_RenderCopyEx(renderer,character, &game.cc_rect, &game.print, 0, NULL, SDL_FLIP_HORIZONTAL);
+    spawn_enemy(slime,ghost,ghost2);
+    draw_enemy();
+    thanks_mau(renderer, game, mau, thanh_mau);
+    draw_score(renderer, font, textColor, game.score);
+    draw_time(renderer,font,textColor,frametime);
+    SDL_RenderPresent(renderer);
+}
+void but_pause()
+{
+    int get_pause=SDL_GetTicks();
+    int nani=0;
+    pause(renderer,nani);
+    if(nani==1)
+    {
+        game.reset();
+        slime.reset();
+        ghost.reset();
+        ghost2.reset();
+        game.play=1;
+        framestart = SDL_GetTicks();
+    }
+    if(nani==2)
+    {
+        game.play=1;
+        framestart+=SDL_GetTicks()-get_pause;
+    }
+    if(nani==3)
+    {
+        game.play=0;
+        game.reset();
+        slime.reset();
+        ghost.reset();
+        ghost2.reset();
+        framestart = SDL_GetTicks();
+        //continue;
+    }
+}
 int main( int argc, char* args[] )
 {
 
@@ -126,15 +173,16 @@ int main( int argc, char* args[] )
     }
     else
     {
-        sword_sound = Mix_LoadMUS("sword_sound.mp3");
         renderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
         character =IMG_LoadTexture(renderer,"char.png");
         e_slime =IMG_LoadTexture(renderer,"ghost.png");
         e_ghost =IMG_LoadTexture(renderer,"cyclops.png");
         e_ghost2 = IMG_LoadTexture(renderer,"monster.png");
-        SDL_QueryTexture(e_slime,0,0,&C_rect.w,&C_rect.h);
+        //SDL_QueryTexture(e_slime,0,0,&C_rect.w,&C_rect.h);
+        slime.e_health=1;
+        ghost.e_health=2;
+        ghost2.e_health=3;
         SDL_Event e;
-        SDL_PollEvent(&e);
         for(int i=0; i<e_num; i++)
         {
             slime.e_rect[i]= {0,0,C_rect.w/6,C_rect.h};
@@ -143,7 +191,6 @@ int main( int argc, char* args[] )
         }
         while(1)
         {
-            //cout<<game.health<<endl;
             if(!game.play)
             {
                 Mix_PlayMusic(gmusic,1);
@@ -152,29 +199,19 @@ int main( int argc, char* args[] )
                 game.play=1;
                 framestart = SDL_GetTicks();
             }
-            //cout<<e_dame<<endl;
+            if(game.play==2)
+            {
+                but_pause();
+            }
             if(game.health<=0)
             {
                 end_game();
                 continue;
             }
-            Uint32 frametime = SDL_GetTicks() - framestart;
-            SDL_SetRenderDrawColor(renderer,240, 189, 199, 1 );
-            SDL_RenderFillRect(renderer,NULL);
-            if(game.movex>0)
-                SDL_RenderCopy(renderer, character, &game.cc_rect,&game.print);
-            else
-                SDL_RenderCopyEx(renderer,character, &game.cc_rect, &game.print, 0, NULL, SDL_FLIP_HORIZONTAL);
-            spawn_enemy(slime,ghost,ghost2);
-            draw_enemy();
-            thanks_mau(renderer, game, mau, thanh_mau);
-            draw_score(renderer, font, textColor, game.score);
-            draw_time(renderer,font,textColor,frametime);
-            SDL_RenderPresent(renderer);
-            charmove(e,game,sword_time,slime, ghost, ghost2);
             if(game.action==1){
-                Mix_PlayMusic(sword_sound,0);
+                Mix_PlayChannel( -1, sword_sound, 0 );
             }
+            render();
             if(clock()-20>=cnt_time)
             {
                 cnt_time=clock();
@@ -186,6 +223,7 @@ int main( int argc, char* args[] )
                 angle+=v;
 
             }
+            charmove(e,game,sword_time,slime, ghost, ghost2);
             SDL_RenderClear(renderer);
             SDL_Delay(30);
         }

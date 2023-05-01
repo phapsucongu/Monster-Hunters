@@ -20,7 +20,7 @@ void thanks_mau(SDL_Renderer* renderer,draw &game, SDL_Rect &mau,SDL_Rect &thanh
     }
     mau.y=game.print.y+game.print.h-29;
     mau.h=4;
-    mau.w=game.print.w*game.health/50-30;
+    mau.w=(double)(game.print.w*game.health)/50.0-30;
     thanh_mau.h=6;
     thanh_mau.y=game.print.y+game.print.h-30;
     thanh_mau.w=game.print.w-28;
@@ -49,10 +49,14 @@ void destroy(draw &nv,enemy &slime)
             &&slime.printf[i].x>=x_mid
             &&slime.printf[i].y<=y_mid+range_attack
             &&slime.printf[i].y>=y_mid-range_attack/3
-            && nv.action ==1 && slime.check[i] == 1)
+            && nv.action ==1 && slime.check[i] )
             {
-                slime.printf[i]={0,0,0,0};
-                slime.check[i]=2;
+                slime.check[i]--;
+                if(slime.check[i]==0)
+                {
+                    slime.printf[i]={0,0,0,0};
+                    nv.score ++;
+                }
             }
         }
         else
@@ -61,15 +65,15 @@ void destroy(draw &nv,enemy &slime)
             &&slime.printf[i].x<=x_mid+range_attack/2
             &&slime.printf[i].y<=y_mid+range_attack
             &&slime.printf[i].y>=y_mid-range_attack/3
-            &&nv.action ==1&& slime.check[i] == 1)
+            &&nv.action ==1&& slime.check[i])
             {
-                slime.printf[i]={0,0,0,0};
-                slime.check[i]=2;
+                slime.check[i]--;
+                if(slime.check[i]==0)
+                {
+                    slime.printf[i]={0,0,0,0};
+                    nv.score ++;
+                }
             }
-        }
-        if(slime.check[i]== 2){
-            nv.score ++;
-            slime.check[i] = 0;
         }
     }
 }
@@ -88,27 +92,31 @@ void charmove(SDL_Event e, draw &game,int &sword_time,enemy &slime,enemy &ghost,
         return ;
     }
     if(sword_time<clock()-300)
-        if(e.type==SDL_MOUSEBUTTONDOWN)
+        if(e.type==SDL_MOUSEBUTTONDOWN||state[SDL_SCANCODE_SPACE])
         {
             sword_time=clock();
             sword(slime,game);
             sword(ghost,game);
             sword(ghost2,game);
         }
-    if (state[SDL_SCANCODE_LEFT])
+    if(state[SDL_SCANCODE_ESCAPE])
+    {
+        game.play=2;
+    }
+    if (state[SDL_SCANCODE_LEFT]||state[SDL_SCANCODE_A])
     {
 
             game.left(slime,ghost,ghost2);
     }
-    if (state[SDL_SCANCODE_RIGHT])
+    if (state[SDL_SCANCODE_RIGHT]||state[SDL_SCANCODE_D])
     {
         game.right(slime,ghost,ghost2);
     }
-    if (state[SDL_SCANCODE_UP])
+    if (state[SDL_SCANCODE_UP]||state[SDL_SCANCODE_W])
     {
         game.up(slime, ghost,ghost2);
     }
-    if (state[SDL_SCANCODE_DOWN])
+    if (state[SDL_SCANCODE_DOWN]||state[SDL_SCANCODE_S])
     {
        game.down(slime,ghost,ghost2);
     }
