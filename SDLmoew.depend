@@ -14,7 +14,7 @@
 1682538749 d:\c++\sdlmoew\draw.h
 	"enemy.h"
 
-1682659766 source:d:\c++\sdlmoew\enemy.cpp
+1682957482 source:d:\c++\sdlmoew\enemy.cpp
 	<bits/stdc++.h>
 	<SDL.h>
 	<SDL_image.h>
@@ -24,9 +24,9 @@
 	"draw.h"
 	"menu.h"
 
-1682651865 d:\c++\sdlmoew\enemy.h
+1682957452 d:\c++\sdlmoew\enemy.h
 
-1682651888 source:d:\c++\sdlmoew\gameplay.cpp
+1682957342 source:d:\c++\sdlmoew\gameplay.cpp
 	<bits/stdc++.h>
 	<SDL.h>
 	<SDL_image.h>
@@ -36,11 +36,11 @@
 	"enemy.h"
 	"gameplay.h"
 
-1682562764 d:\c++\sdlmoew\gameplay.h
+1682957564 d:\c++\sdlmoew\gameplay.h
 	"draw.h"
 	"enemy.h"
 
-1682648759 source:d:\c++\sdlmoew\main.cpp
+1682957504 source:d:\c++\sdlmoew\main.cpp
 	<bits/stdc++.h>
 	<windows.h>
 	<SDL.h>
@@ -53,9 +53,9 @@
 	"menu.h"
 	<ctime>
 
-1682648684 d:\c++\sdlmoew\menu.h
+1682953791 d:\c++\sdlmoew\menu.h
 
-1682652178 source:d:\c++\sdlmoew\menu.cpp
+1682956842 source:d:\c++\sdlmoew\menu.cpp
 	<bits/stdc++.h>
 	<windows.h>
 	<SDL.h>

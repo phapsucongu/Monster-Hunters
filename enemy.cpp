@@ -40,7 +40,7 @@ void enemy::spawn(SDL_Rect print,int i)
     if(num<=e_num){
         num++;
     }
-    check[i]=1;
+    check[i]=e_health;
 }
 void enemy::emove(SDL_Rect print,double &health)
 {
@@ -61,24 +61,24 @@ void enemy::emove(SDL_Rect print,double &health)
         if(abs(printf[i].x-print.x)>=abs(printf[i].y-print.y))
         {
             if(printf[i].x>print.x)
-                printf[i].x-=e_step;
+                printf[i].x-=dame::e_step;
             else if(printf[i].x<print.x)
-                printf[i].x+=e_step;
+                printf[i].x+=dame::e_step;
             else if(printf[i].y>print.y)
-                printf[i].y-=e_step;
+                printf[i].y-=dame::e_step;
             else
-                printf[i].y+=e_step;
+                printf[i].y+=dame::e_step;
         }
         else
         {
             if(printf[i].y>print.y)
-                printf[i].y-=e_step;
+                printf[i].y-=dame::e_step;
             else if(printf[i].y<print.y)
-                printf[i].y+=e_step;
+                printf[i].y+=dame::e_step;
             else if(printf[i].x>print.x)
-                printf[i].x-=e_step;
+                printf[i].x-=dame::e_step;
             else
-                printf[i].x+=e_step;
+                printf[i].x+=dame::e_step;
         }
     }
 
