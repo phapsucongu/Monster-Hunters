@@ -14,11 +14,7 @@ public :
     int x,y,num=0;
     SDL_Rect e_rect[e_num+1],printf[e_num+1];
     int check[e_num+1]={0};
-<<<<<<< HEAD
     int e_vs_e(int i,int k);
-=======
-    int e_vs_e(int i,int k);
->>>>>>> 988f14395bf77f2808985f0f0212804cf2171e8a
     int e_health=1;
     bool cmp(int a,int b);
     bool collision (SDL_Rect a,SDL_Rect b);

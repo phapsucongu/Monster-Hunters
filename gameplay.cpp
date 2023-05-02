@@ -48,7 +48,6 @@ void destroy(draw &nv,enemy &slime)
             if(slime.printf[i].x<=x_mid+range_attack
             &&slime.printf[i].x>=x_mid
             &&slime.printf[i].y<=y_mid+range_attack
-<<<<<<< HEAD
             &&slime.printf[i].y>=y_mid-range_attack/3
             && nv.action ==1 && slime.check[i] )
             {
@@ -57,17 +56,8 @@ void destroy(draw &nv,enemy &slime)
                 {
                     slime.printf[i]={0,0,0,0};
                     nv.score ++;
-=======
-            &&slime.printf[i].y>=y_mid-range_attack/3
-            && nv.action ==1 && slime.check[i] )
-            {
-                slime.check[i]--;
-                if(slime.check[i]==0)
-                {
-                    slime.printf[i]={0,0,0,0};
-                    nv.score ++;
->>>>>>> 988f14395bf77f2808985f0f0212804cf2171e8a
                 }
+
             }
         }
         else
@@ -75,7 +65,6 @@ void destroy(draw &nv,enemy &slime)
             if(slime.printf[i].x>=x_mid-range_attack
             &&slime.printf[i].x<=x_mid+range_attack/2
             &&slime.printf[i].y<=y_mid+range_attack
-<<<<<<< HEAD
             &&slime.printf[i].y>=y_mid-range_attack/3
             &&nv.action ==1&& slime.check[i])
             {
@@ -84,16 +73,6 @@ void destroy(draw &nv,enemy &slime)
                 {
                     slime.printf[i]={0,0,0,0};
                     nv.score ++;
-=======
-            &&slime.printf[i].y>=y_mid-range_attack/3
-            &&nv.action ==1&& slime.check[i])
-            {
-                slime.check[i]--;
-                if(slime.check[i]==0)
-                {
-                    slime.printf[i]={0,0,0,0};
-                    nv.score ++;
->>>>>>> 988f14395bf77f2808985f0f0212804cf2171e8a
                 }
             }
         }
@@ -120,17 +99,14 @@ void charmove(SDL_Event e, draw &game,int &sword_time,enemy &slime,enemy &ghost,
             sword(slime,game);
             sword(ghost,game);
             sword(ghost2,game);
-<<<<<<< HEAD
         }
     if(state[SDL_SCANCODE_ESCAPE])
     {
         game.play=2;
-=======
         }
     if(state[SDL_SCANCODE_ESCAPE])
     {
         game.play=2;
->>>>>>> 988f14395bf77f2808985f0f0212804cf2171e8a
     }
     if (state[SDL_SCANCODE_LEFT]||state[SDL_SCANCODE_A])
     {
