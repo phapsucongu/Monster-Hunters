@@ -44,7 +44,7 @@ void draw_menu(SDL_Renderer* renderer)
     but_easy = {510,150,300,95};
     but_medium ={510,320,300,95};
     but_hard = {510,455,300,95};
-    but_info2 ={930,555,45,45};
+    but_info2 ={950,570,45,45};
     bg=IMG_LoadTexture(renderer,"menu.png");
     op=IMG_LoadTexture(renderer,"option.png");
     pau=IMG_LoadTexture(renderer,"pause.png");
@@ -131,6 +131,26 @@ void pause(SDL_Renderer* renderer,int &nani)
             Mix_PlayChannel( -1, gclick, 0 );
             break;
         }
+        if(e.type == SDL_MOUSEBUTTONDOWN&&mouseX>=but_info2.x&&mouseX<=but_info2.x+but_info2.w&&mouseY>=but_info2.y&&mouseY<=but_info2.y+but_info2.h)
+        {
+            Mix_PlayChannel( -1, gclick, 0 );
+            SDL_Event e;
+            while(1)
+            {
+                SDL_PollEvent(&e);
+                if(st[SDL_SCANCODE_ESCAPE])
+                    break;
+                SDL_SetRenderDrawColor(renderer,240, 189, 199, 1 );
+                SDL_RenderFillRect(renderer,NULL);
+                SDL_RenderCopy(renderer,blur,NULL,NULL);
+                SDL_RenderCopy(renderer,info,NULL,&option_pic);
+                SDL_RenderPresent(renderer);
+                SDL_RenderClear(renderer);
+                SDL_Delay(10);
+                if(e.type==SDL_QUIT)
+                    exit(0);
+            }
+        }
         if(e.type==SDL_QUIT)
             exit(0);
         if(e.type == SDL_MOUSEMOTION)
@@ -180,6 +200,8 @@ void run_menu(SDL_Renderer* renderer,TTF_Font* font,SDL_Color textColor)
                 SDL_PollEvent(&e);
                 if(st[SDL_SCANCODE_ESCAPE])
                     break;
+                if(e.type==SDL_QUIT)
+                    exit(0);
                 SDL_RenderCopy(renderer,bg,NULL,NULL);
                 SDL_RenderCopy(renderer,blur,NULL,NULL);
                 SDL_RenderCopy(renderer,info,NULL,&option_pic);

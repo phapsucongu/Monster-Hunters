@@ -18,6 +18,7 @@ SDL_Texture* character;
 SDL_Texture* e_slime=NULL;
 SDL_Texture* e_ghost=NULL;
 SDL_Texture* e_ghost2=NULL;
+SDL_Texture* boss=NULL;
 Mix_Music* gmusic=NULL;
 Mix_Chunk* sword_sound=NULL;
 TTF_Font* font=NULL;
@@ -78,9 +79,17 @@ void draw_enemy()
 {
     for(int i=0; i<slime.num; i++)
     {
+        if(i==0&&dame::lv==3)
+        {
+            SDL_RenderCopyEx(renderer,boss, NULL,&slime.printf[i], angle, NULL, SDL_FLIP_HORIZONTAL);
+            SDL_RenderCopyEx(renderer,e_ghost, NULL,&ghost.printf[i], angle, NULL, SDL_FLIP_HORIZONTAL);
+            SDL_RenderCopyEx(renderer,e_ghost2, NULL,&ghost2.printf[i], angle, NULL, SDL_FLIP_HORIZONTAL);
+        }
+        else{
         SDL_RenderCopyEx(renderer,e_slime, NULL,&slime.printf[i], angle, NULL, SDL_FLIP_HORIZONTAL);
         SDL_RenderCopyEx(renderer,e_ghost, NULL,&ghost.printf[i], angle, NULL, SDL_FLIP_HORIZONTAL);
         SDL_RenderCopyEx(renderer,e_ghost2, NULL,&ghost2.printf[i], angle, NULL, SDL_FLIP_HORIZONTAL);
+        }
     }
 }
 void end_game()
@@ -250,9 +259,7 @@ int main( int argc, char* args[] )
 {
 
     if( !init() )
-    {
         printf( "Failed to initialize!\n" );
-    }
     else
     {
         renderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
@@ -260,7 +267,7 @@ int main( int argc, char* args[] )
         e_slime =IMG_LoadTexture(renderer,"ghost.png");
         e_ghost =IMG_LoadTexture(renderer,"cyclops.png");
         e_ghost2 = IMG_LoadTexture(renderer,"monster.png");
-        //SDL_QueryTexture(e_slime,0,0,&C_rect.w,&C_rect.h);
+        boss=IMG_LoadTexture(renderer,"boss.png");
         slime.e_health=1;
         ghost.e_health=2;
         ghost2.e_health=3;
@@ -280,6 +287,11 @@ int main( int argc, char* args[] )
                 Mix_HaltMusic();
                 game.play=1;
                 framestart = SDL_GetTicks();
+                if(dame::lv==3)
+                {
+                    slime.check[0]=100;
+                    slime.printf[0]={0,0,132,88};
+                }
             }
             if(game.play==2)
             {

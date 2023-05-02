@@ -7,10 +7,9 @@
 #include "draw.h"
 #include "menu.h"
 using namespace std;
-int e_map[260][150];
 void enemy::spawn(SDL_Rect print,int i)
 {
-    printf[i]={0,0,30,30};
+    printf[i]= {0,0,30,30};
     int x2=0,y2=0;
     if(i%4==1)
     {
@@ -32,10 +31,8 @@ void enemy::spawn(SDL_Rect print,int i)
     }
     printf[i].x=x2*5;
     printf[i].y=y2*5;
-    for(int i=max(0,x2-2);i>=min(259,x2+2);i++)
-        for(int j=max(0,y2-2);j>=min(149,y2+2);j++)
-            e_map[i][j]=1;
-    if(num<=e_num){
+    if(num<=e_num)
+    {
         num++;
     }
     check[i]=e_health;
@@ -49,39 +46,78 @@ void enemy::emove(SDL_Rect print,double &health)
     rect.h-=60;
     print.x+=print.w/2;
     print.y+=print.h/2;
-    for(int i=0;i<num;i++)
+    for(int i=0; i<num; i++)
     {
-        if(collision(printf[i],rect)&&check[i]==1)
+        if(collision(printf[i],rect)&&check[i])
         {
             health-=dame::e_dame;
             continue;
         }
-        if(collision(printf[i],rect)&&check[i]==1)
+        if(collision(printf[i],rect)&&check[i])
         {
             health-=dame::e_dame;
             continue;
         }
-        if(abs(printf[i].x-print.x)>=abs(printf[i].y-print.y))
+        if(i%3==0)
         {
-            if(printf[i].x>print.x)
-                printf[i].x-=dame::e_step;
-            else if(printf[i].x<print.x)
-                printf[i].x+=dame::e_step;
-            else if(printf[i].y>print.y)
-                printf[i].y-=dame::e_step;
+            if(abs(printf[i].x-print.x)>=abs(printf[i].y-print.y))
+            {
+                if(printf[i].x>print.x)
+                    printf[i].x-=dame::e_step;
+                else if(printf[i].x<print.x)
+                    printf[i].x+=dame::e_step;
+                else if(printf[i].y>print.y)
+                    printf[i].y-=dame::e_step;
+                else
+                    printf[i].y+=dame::e_step;
+            }
             else
-                printf[i].y+=dame::e_step;
+            {
+                if(printf[i].y>print.y)
+                    printf[i].y-=dame::e_step;
+                else if(printf[i].y<print.y)
+                    printf[i].y+=dame::e_step;
+                else if(printf[i].x>print.x)
+                    printf[i].x-=dame::e_step;
+                else
+                    printf[i].x+=dame::e_step;
+            }
         }
-        else
+        if(i%3==1)
         {
             if(printf[i].y>print.y)
                 printf[i].y-=dame::e_step;
             else if(printf[i].y<print.y)
                 printf[i].y+=dame::e_step;
-            else if(printf[i].x>print.x)
+            if(printf[i].x>print.x)
                 printf[i].x-=dame::e_step;
             else
                 printf[i].x+=dame::e_step;
+        }
+        if(i%3==2)
+        {
+            if(abs(printf[i].x-print.x)>=abs(printf[i].y-print.y)*2)
+            {
+                if(printf[i].x>print.x)
+                    printf[i].x-=dame::e_step;
+                else if(printf[i].x<print.x)
+                    printf[i].x+=dame::e_step;
+                else if(printf[i].y>print.y)
+                    printf[i].y-=dame::e_step;
+                else
+                    printf[i].y+=dame::e_step;
+            }
+            else
+            {
+                if(printf[i].y>print.y)
+                    printf[i].y-=dame::e_step;
+                else if(printf[i].y<print.y)
+                    printf[i].y+=dame::e_step;
+                else if(printf[i].x>print.x)
+                    printf[i].x-=dame::e_step;
+                else
+                    printf[i].x+=dame::e_step;
+            }
         }
     }
 }
@@ -107,11 +143,11 @@ bool enemy::collision (SDL_Rect a,SDL_Rect b)
 void enemy::reset()
 {
     x,y,num=0;
-     e_rect[e_num+1],printf[e_num+1];
-    for(int i=0;i<=e_num;i++)
+    e_rect[e_num+1],printf[e_num+1];
+    for(int i=0; i<=e_num; i++)
     {
-        check[i]={0};
-        printf[i]={0,0,0,0};
+        check[i]= {0};
+        printf[i]= {0,0,0,0};
 
     }
 

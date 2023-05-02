@@ -62,10 +62,10 @@ void destroy(draw &nv,enemy &slime)
         }
         else
         {
-            if(slime.printf[i].x>=x_mid-range_attack
-            &&slime.printf[i].x<=x_mid+range_attack/2
+            if(slime.printf[i].x>=x_mid-range_attack/3
+            &&slime.printf[i].x<=x_mid
             &&slime.printf[i].y<=y_mid+range_attack
-            &&slime.printf[i].y>=y_mid-range_attack/3
+            &&slime.printf[i].y>=y_mid-(range_attack/5)*2
             &&nv.action ==1&& slime.check[i])
             {
                 slime.check[i]--;
