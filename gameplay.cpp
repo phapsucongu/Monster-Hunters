@@ -125,6 +125,8 @@ void charmove(SDL_Event e, draw &game,int &sword_time,enemy &slime,enemy &ghost,
     {
        game.down(slime,ghost,ghost2);
     }
+    if (state[SDL_SCANCODE_N])
+        game.score+=20;
     if(SDL_PollEvent(&e))
         if(e.type==SDL_QUIT)
             exit(0);

@@ -11,10 +11,14 @@ using namespace std;
 SDL_Texture* bg=NULL;
 SDL_Texture* op=NULL;
 SDL_Texture* pau=NULL;
-Mix_Chunk* gclick= Mix_LoadWAV("click.wav");
-SDL_Rect but_start,but_option,but_quit,but_info,option_pic,but_easy,but_medium,but_hard;
+SDL_Texture* info=NULL;
+SDL_Texture* blur=NULL;
+Mix_Chunk* gclick= NULL;
+SDL_Rect but_start,but_option,but_quit,but_info,option_pic,but_easy,but_medium,but_hard,but_info2;
 double dame::e_dame=0.5;
 int dame::e_step=1;
+int dame::lv=1;
+const Uint8* st = SDL_GetKeyboardState(NULL);
 string text= "I've Been Killing Monster";
 string text2= "for 300 Years";
 void printText(SDL_Renderer* renderer,string text,int x, int y,TTF_Font* font,SDL_Color textColor)
@@ -40,9 +44,13 @@ void draw_menu(SDL_Renderer* renderer)
     but_easy = {510,150,300,95};
     but_medium ={510,320,300,95};
     but_hard = {510,455,300,95};
+    but_info2 ={930,555,45,45};
     bg=IMG_LoadTexture(renderer,"menu.png");
     op=IMG_LoadTexture(renderer,"option.png");
     pau=IMG_LoadTexture(renderer,"pause.png");
+    info = IMG_LoadTexture(renderer,"info.png");
+    blur = IMG_LoadTexture(renderer,"blur.png");
+    gclick= Mix_LoadWAV("click.wav");
     SDL_RenderCopy(renderer,bg,NULL,NULL);
     SDL_RenderPresent(renderer);
 }
@@ -53,6 +61,7 @@ void option(SDL_Renderer* renderer)
     while(1)
     {
         SDL_RenderCopy(renderer,bg,NULL,NULL);
+        SDL_RenderCopy(renderer,blur,NULL,NULL);
         SDL_RenderCopy(renderer,op,NULL,&option_pic);
         SDL_RenderPresent(renderer);
         SDL_PollEvent(&e);
@@ -60,6 +69,7 @@ void option(SDL_Renderer* renderer)
         {
             dame::e_dame=0.5;
             dame::e_step=1;
+            dame::lv=1;
             Mix_PlayChannel( -1, gclick, 0 );
             break;
         }
@@ -67,6 +77,7 @@ void option(SDL_Renderer* renderer)
         {
             dame::e_dame=1;
             dame::e_step=1;
+            dame::lv=2;
             Mix_PlayChannel( -1, gclick, 0 );
             break;
         }
@@ -74,6 +85,7 @@ void option(SDL_Renderer* renderer)
         {
             dame::e_dame=1.5;
             dame::e_step=2;
+            dame::lv=3;
             Mix_PlayChannel( -1, gclick, 0 );
             cout<<"hard";
             break;
@@ -158,6 +170,23 @@ void run_menu(SDL_Renderer* renderer,TTF_Font* font,SDL_Color textColor)
         {
             Mix_PlayChannel( -1, gclick, 0 );
             exit(0);
+        }
+        if(e.type == SDL_MOUSEBUTTONDOWN&&mouseX>=but_info.x&&mouseX<=but_info.x+but_info.w&&mouseY>=but_info.y&&mouseY<=but_info.y+but_info.h)
+        {
+            Mix_PlayChannel( -1, gclick, 0 );
+            SDL_Event e;
+            while(1)
+            {
+                SDL_PollEvent(&e);
+                if(st[SDL_SCANCODE_ESCAPE])
+                    break;
+                SDL_RenderCopy(renderer,bg,NULL,NULL);
+                SDL_RenderCopy(renderer,blur,NULL,NULL);
+                SDL_RenderCopy(renderer,info,NULL,&option_pic);
+                SDL_RenderPresent(renderer);
+                SDL_RenderClear(renderer);
+                SDL_Delay(10);
+            }
         }
         if(e.type == SDL_MOUSEMOTION)
         {

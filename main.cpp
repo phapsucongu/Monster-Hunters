@@ -22,6 +22,7 @@ Mix_Music* gmusic=NULL;
 Mix_Chunk* sword_sound=NULL;
 TTF_Font* font=NULL;
 SDL_Color textColor = {255, 255, 255};
+int frametime;
 draw game;
 enemy slime;
 enemy ghost;
@@ -88,6 +89,7 @@ void end_game()
     {
         SDL_SetRenderDrawColor(renderer,240, 189, 199, 1 );
         SDL_RenderFillRect(renderer,NULL);
+        printText(renderer,"YOU LOSE",580,250,font,textColor);
         draw_enemy();
         if(game.movex>0)
             SDL_RenderCopy(renderer, character, &game.cc_rect,&game.print);
@@ -120,7 +122,7 @@ void end_game()
 }
 void render()
 {
-    Uint32 frametime = SDL_GetTicks() - framestart;
+    frametime = SDL_GetTicks() - framestart;
     SDL_SetRenderDrawColor(renderer,240, 189, 199, 1 );
     SDL_RenderFillRect(renderer,NULL);
     if(game.movex>0)
@@ -161,7 +163,87 @@ void but_pause()
         ghost.reset();
         ghost2.reset();
         framestart = SDL_GetTicks();
-        //continue;
+    }
+}
+void areyouwinningson()
+{
+    if(dame::lv==1)
+    {
+        if((game.score>=20&&frametime>=120000)||game.score>=40)
+        {
+            game.play=0;
+            game.reset();
+            slime.reset();
+            ghost.reset();
+            ghost2.reset();
+            framestart = SDL_GetTicks();
+            int t=5000;
+            while(t--)
+            {
+                SDL_SetRenderDrawColor(renderer,240, 189, 199, 1 );
+                SDL_RenderFillRect(renderer,NULL);
+                if(game.movex>0)
+                    SDL_RenderCopy(renderer, character, &game.cc_rect,&game.print);
+                else
+                    SDL_RenderCopyEx(renderer,character, &game.cc_rect, &game.print, 0, NULL, SDL_FLIP_HORIZONTAL);
+                printText(renderer,"YOU WIN",580,250,font,textColor);
+                SDL_RenderPresent(renderer);
+                SDL_RenderClear(renderer);
+            }
+
+        }
+    }
+    if(dame::lv==2)
+    {
+        if((game.score>=30&&frametime>=180000)||game.score>=60)
+        {
+            game.play=0;
+            game.reset();
+            slime.reset();
+            ghost.reset();
+            ghost2.reset();
+            framestart = SDL_GetTicks();
+            int t=5000;
+            while(t--)
+            {
+                SDL_SetRenderDrawColor(renderer,240, 189, 199, 1 );
+                SDL_RenderFillRect(renderer,NULL);
+                if(game.movex>0)
+                    SDL_RenderCopy(renderer, character, &game.cc_rect,&game.print);
+                else
+                    SDL_RenderCopyEx(renderer,character, &game.cc_rect, &game.print, 0, NULL, SDL_FLIP_HORIZONTAL);
+                printText(renderer,"YOU WIN",580,250,font,textColor);
+                SDL_RenderPresent(renderer);
+                SDL_RenderClear(renderer);
+            }
+
+        }
+    }
+    if(dame::lv==3)
+    {
+        if((game.score>=50&&frametime>=250000)||game.score>=100)
+        {
+            game.play=0;
+            game.reset();
+            slime.reset();
+            ghost.reset();
+            ghost2.reset();
+            framestart = SDL_GetTicks();
+            int t=5000;
+            while(t--)
+            {
+                SDL_SetRenderDrawColor(renderer,240, 189, 199, 1 );
+                SDL_RenderFillRect(renderer,NULL);
+                if(game.movex>0)
+                    SDL_RenderCopy(renderer, character, &game.cc_rect,&game.print);
+                else
+                    SDL_RenderCopyEx(renderer,character, &game.cc_rect, &game.print, 0, NULL, SDL_FLIP_HORIZONTAL);
+                printText(renderer,"YOU WIN",580,250,font,textColor);
+                SDL_RenderPresent(renderer);
+                SDL_RenderClear(renderer);
+            }
+
+        }
     }
 }
 int main( int argc, char* args[] )
@@ -212,8 +294,8 @@ int main( int argc, char* args[] )
                 Mix_HaltChannel(-1);
                 Mix_PlayChannel( -1, sword_sound, 0 );
                 game.action==2;
-                cout<<1;
             }
+            areyouwinningson();
             render();
             if(clock()-20>=cnt_time)
             {
