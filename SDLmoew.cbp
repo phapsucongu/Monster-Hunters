@@ -31,15 +31,15 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="draw.cpp" />
-		<Unit filename="draw.h" />
-		<Unit filename="enemy.cpp" />
-		<Unit filename="enemy.h" />
-		<Unit filename="gameplay.cpp" />
-		<Unit filename="gameplay.h" />
-		<Unit filename="main.cpp" />
-		<Unit filename="menu.cpp" />
-		<Unit filename="menu.h" />
+		<Unit filename="code/draw.cpp" />
+		<Unit filename="code/draw.h" />
+		<Unit filename="code/enemy.cpp" />
+		<Unit filename="code/enemy.h" />
+		<Unit filename="code/gameplay.cpp" />
+		<Unit filename="code/gameplay.h" />
+		<Unit filename="code/main.cpp" />
+		<Unit filename="code/menu.cpp" />
+		<Unit filename="code/menu.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
