@@ -4,7 +4,7 @@ Monster-Hunters được viết bằng C++ sử dụng thư viện SDL 2.0
   <h1>
     TANK 1990
   </h1>
-  <img src="" width="250"/>
+  <img src="https://media.discordapp.net/attachments/971965145192489010/1103358674111565926/image.png?width=1137&height=662" width="250"/>
 </div>
 
 ---
