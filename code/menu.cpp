@@ -242,7 +242,7 @@ void draw_time(SDL_Renderer* renderer,TTF_Font* font,SDL_Color textColor, Uint32
         }
     }
     printText(renderer,text4,600,0,font,textColor);
-   // SDL_RenderPresent(renderer);
+    SDL_RenderPresent(renderer);
 }
 void draw_score(SDL_Renderer* renderer,TTF_Font* font,SDL_Color textColor, int score)
 {
