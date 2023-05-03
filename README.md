@@ -6,6 +6,9 @@ Monster-Hunters được viết bằng C++ sử dụng thư viện SDL 2.0
   </h1>
   <img src="" width="250"/>
 </div>
+
+---
+
 #  LUẬT CHƠI :
 - Người chơi cố gắng sống sót qua thời gian quy định và tiêu diệt các quái vật xuất hiện 
 - Có 3 chế độ chơi : Dễ, Trung bình, Khó ( chế độ khó sẽ xuất hiện Boss ngay đầu màn chơi với lượng máu lớn)
