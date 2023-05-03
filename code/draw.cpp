@@ -7,6 +7,7 @@
 #include "draw.h"
 #include "enemy.h"
 #include "gameplay.h"
+#include "menu.h"
 #include <ctime>
 using namespace std;
 void draw::nextframe()
@@ -34,7 +35,7 @@ void draw::nextframe()
         cc_rect.y=0;
     }
 }
-void draw::left(enemy &slime, enemy &ghost, enemy &ghost2)
+void draw::left(enemy &slime, enemy &ghost, enemy &ghost2,BOSS &boss1)
 {
     for(int i=0;i<=e_num;i++)
     {
@@ -44,13 +45,15 @@ void draw::left(enemy &slime, enemy &ghost, enemy &ghost2)
         }
         if(ghost.check[i])
         {
-            ghost.printf[i].x+=step+1;
+            ghost.printf[i].x+=step;
         }
         if(ghost2.check[i])
         {
-            ghost2.printf[i].x+=step+2;
+            ghost2.printf[i].x+=step;
         }
     }
+    if(dame::lv==3)
+        boss1.boss_rect.x+=step;
     movex--;
     if(movex<=-5)
     {
@@ -59,7 +62,7 @@ void draw::left(enemy &slime, enemy &ghost, enemy &ghost2)
         nextframe();
     }
 }
-void draw::right(enemy &slime, enemy &ghost, enemy &ghost2)
+void draw::right(enemy &slime, enemy &ghost, enemy &ghost2,BOSS &boss1)
 {
     for(int i=0;i<=e_num;i++)
     {
@@ -69,13 +72,15 @@ void draw::right(enemy &slime, enemy &ghost, enemy &ghost2)
         }
         if(ghost.check[i])
         {
-            ghost.printf[i].x-=step+1;
+            ghost.printf[i].x-=step;
         }
         if(ghost2.check[i])
         {
-            ghost2.printf[i].x-=step+2;
+            ghost2.printf[i].x-=step;
         }
     }
+    if(dame::lv==3)
+        boss1.boss_rect.x-=step;
     movex++;
     if(movex>=5)
     {
@@ -84,7 +89,7 @@ void draw::right(enemy &slime, enemy &ghost, enemy &ghost2)
         nextframe();
     }
 }
-void draw::up(enemy &slime, enemy &ghost, enemy &ghost2)
+void draw::up(enemy &slime, enemy &ghost, enemy &ghost2,BOSS &boss1)
 {
     for(int i=0;i<=e_num;i++)
     {
@@ -94,13 +99,15 @@ void draw::up(enemy &slime, enemy &ghost, enemy &ghost2)
         }
         if(ghost.check[i])
         {
-            ghost.printf[i].y+=step+1;
+            ghost.printf[i].y+=step;
         }
         if(ghost2.check[i])
         {
-            ghost2.printf[i].y+=step+2;
+            ghost2.printf[i].y+=step;
         }
     }
+    if(dame::lv==3)
+        boss1.boss_rect.y+=step;
     movey--;
     if(movey<=-5)
     {
@@ -109,7 +116,7 @@ void draw::up(enemy &slime, enemy &ghost, enemy &ghost2)
         nextframe();
     }
 }
-void draw::down(enemy &slime, enemy &ghost, enemy &ghost2)
+void draw::down(enemy &slime, enemy &ghost, enemy &ghost2,BOSS &boss1)
 {
     for(int i=0;i<=e_num;i++)
     {
@@ -119,13 +126,15 @@ void draw::down(enemy &slime, enemy &ghost, enemy &ghost2)
         }
         if(ghost.check[i])
         {
-            ghost.printf[i].y-=step+1;
+            ghost.printf[i].y-=step;
         }
         if(ghost2.check[i])
         {
-            ghost2.printf[i].y-=step+2;
+            ghost2.printf[i].y-=step;
         }
     }
+    if(dame::lv==3)
+        boss1.boss_rect.y-=step;
     movey++;
     if(movey>=5)
     {

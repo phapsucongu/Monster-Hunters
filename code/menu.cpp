@@ -15,12 +15,13 @@ SDL_Texture* info=NULL;
 SDL_Texture* blur=NULL;
 Mix_Chunk* gclick= NULL;
 SDL_Rect but_start,but_option,but_quit,but_info,option_pic,but_easy,but_medium,but_hard,but_info2;
-double dame::e_dame=0.5;
-int dame::e_step=1;
-int dame::lv=1;
 const Uint8* st = SDL_GetKeyboardState(NULL);
 string text= "I've Been Killing Monster";
 string text2= "for 300 Years";
+double dame::e_dame =0.5;
+int dame::e_step=1;
+int dame::lv=1;
+int dame::fps=60;
 void printText(SDL_Renderer* renderer,string text,int x, int y,TTF_Font* font,SDL_Color textColor)
 {
     SDL_Surface* surface = TTF_RenderText_Solid(font, text.c_str(),textColor);

@@ -12,5 +12,6 @@ public:
     static double e_dame;
     static int e_step;
     static int lv;
+    static int fps;
 };
 #endif menu_h_h;

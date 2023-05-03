@@ -8,6 +8,7 @@
 #include "enemy.h"
 #include "gameplay.h"
 #include "menu.h"
+#include "boss.h"
 #include <ctime>
 using namespace std;
 SDL_Window* gWindow = NULL;
@@ -24,11 +25,13 @@ Mix_Chunk* sword_sound=NULL;
 TTF_Font* font=NULL;
 SDL_Color textColor = {255, 255, 255};
 int frametime;
+int spawn_num;
 draw game;
 enemy slime;
 enemy ghost;
 enemy ghost2;
-Uint32 framestart = SDL_GetTicks();
+BOSS boss1;
+Uint32 gamestart = SDL_GetTicks();
 int cnt_time, sword_time,spawn_time;
 int angle = 5,v=1;
 bool init()
@@ -51,27 +54,32 @@ void spawn_enemy(enemy &slime, enemy &ghost, enemy &ghost2)
 {
     if(spawn_time+time_spawn<=clock())
     {
+        spawn_num++;
+        spawn_num=min(spawn_num,200);
         spawn_time=clock();
-        for(int i=0; i<=e_num; i++)
+        for(int j=0; j<=spawn_num/20; j++)
         {
-            if(slime.check[i]==0)
+            for(int i=0; i<=e_num; i++)
             {
-                slime.spawn(game.print,i);
-                break;
+                if(slime.check[i]==0)
+                {
+                    slime.spawn(game.print,i);
+                    break;
+                }
+                if(ghost.check[i]==0&&game.score>=10)
+                {
+                    ghost.spawn(game.print,i);
+                    break;
+                }
+                if(ghost2.check[i]==0&&game.score>=20)
+                {
+                    ghost2.spawn(game.print,i);
+                    break;
+                }
             }
-            if(ghost.check[i]==0&&game.score>=10)
-            {
-                ghost.spawn(game.print,i);
-                break;
-            }
-            if(ghost2.check[i]==0&&game.score>=20)
-            {
-                ghost2.spawn(game.print,i);
-                break;
-            }
+            if(time_spawn>=200)
+                time_spawn-=10;
         }
-        if(time_spawn>=100)
-            time_spawn-=20;
     }
 }
 
@@ -79,17 +87,11 @@ void draw_enemy()
 {
     for(int i=0; i<slime.num; i++)
     {
-        if(i==0&&dame::lv==3)
-        {
-            SDL_RenderCopyEx(renderer,boss, NULL,&slime.printf[i], angle, NULL, SDL_FLIP_HORIZONTAL);
-            SDL_RenderCopyEx(renderer,e_ghost, NULL,&ghost.printf[i], angle, NULL, SDL_FLIP_HORIZONTAL);
-            SDL_RenderCopyEx(renderer,e_ghost2, NULL,&ghost2.printf[i], angle, NULL, SDL_FLIP_HORIZONTAL);
-        }
-        else{
+        if(dame::lv==3)
+            SDL_RenderCopyEx(renderer,boss, NULL,&boss1.boss_rect, angle, NULL, SDL_FLIP_HORIZONTAL);
         SDL_RenderCopyEx(renderer,e_slime, NULL,&slime.printf[i], angle, NULL, SDL_FLIP_HORIZONTAL);
         SDL_RenderCopyEx(renderer,e_ghost, NULL,&ghost.printf[i], angle, NULL, SDL_FLIP_HORIZONTAL);
         SDL_RenderCopyEx(renderer,e_ghost2, NULL,&ghost2.printf[i], angle, NULL, SDL_FLIP_HORIZONTAL);
-        }
     }
 }
 void end_game()
@@ -127,11 +129,12 @@ void end_game()
     slime.reset();
     ghost.reset();
     ghost2.reset();
+    boss1.reset();
 
 }
 void render()
 {
-    frametime = SDL_GetTicks() - framestart;
+    frametime = SDL_GetTicks() - gamestart;
     SDL_SetRenderDrawColor(renderer,240, 189, 199, 1 );
     SDL_RenderFillRect(renderer,NULL);
     if(game.movex>0)
@@ -157,12 +160,12 @@ void but_pause()
         ghost.reset();
         ghost2.reset();
         game.play=1;
-        framestart = SDL_GetTicks();
+        gamestart = SDL_GetTicks();
     }
     if(nani==2)
     {
         game.play=1;
-        framestart+=SDL_GetTicks()-get_pause;
+        gamestart+=SDL_GetTicks()-get_pause;
     }
     if(nani==3)
     {
@@ -171,7 +174,7 @@ void but_pause()
         slime.reset();
         ghost.reset();
         ghost2.reset();
-        framestart = SDL_GetTicks();
+        gamestart = SDL_GetTicks();
     }
 }
 void areyouwinningson()
@@ -185,7 +188,7 @@ void areyouwinningson()
             slime.reset();
             ghost.reset();
             ghost2.reset();
-            framestart = SDL_GetTicks();
+            gamestart = SDL_GetTicks();
             int t=5000;
             while(t--)
             {
@@ -211,7 +214,7 @@ void areyouwinningson()
             slime.reset();
             ghost.reset();
             ghost2.reset();
-            framestart = SDL_GetTicks();
+            gamestart = SDL_GetTicks();
             int t=5000;
             while(t--)
             {
@@ -237,7 +240,7 @@ void areyouwinningson()
             slime.reset();
             ghost.reset();
             ghost2.reset();
-            framestart = SDL_GetTicks();
+            gamestart = SDL_GetTicks();
             int t=5000;
             while(t--)
             {
@@ -272,26 +275,16 @@ int main( int argc, char* args[] )
         ghost.e_health=2;
         ghost2.e_health=3;
         SDL_Event e;
-        for(int i=0; i<e_num; i++)
-        {
-            slime.e_rect[i]= {0,0,C_rect.w/6,C_rect.h};
-            ghost.e_rect[i]= {0,0,C_rect.w/6,C_rect.h};
-            ghost2.e_rect[i]= {0,0,C_rect.w/6,C_rect.h};
-        }
         while(1)
         {
+            int framestart=clock();
             if(!game.play)
             {
                 Mix_PlayMusic(gmusic,1);
                 run_menu(renderer,font,textColor);
                 Mix_HaltMusic();
                 game.play=1;
-                framestart = SDL_GetTicks();
-                if(dame::lv==3)
-                {
-                    slime.check[0]=100;
-                    slime.printf[0]={0,0,132,88};
-                }
+                gamestart = SDL_GetTicks();
             }
             if(game.play==2)
             {
@@ -302,27 +295,32 @@ int main( int argc, char* args[] )
                 end_game();
                 continue;
             }
-            if(game.action==1){
+            if(game.action==1)
+            {
                 Mix_HaltChannel(-1);
                 Mix_PlayChannel( -1, sword_sound, 0 );
                 game.action==2;
             }
             areyouwinningson();
             render();
-            if(clock()-20>=cnt_time)
+            if(clock()-30>=cnt_time)
             {
                 cnt_time=clock();
                 slime.emove(game.print,game.health);
                 ghost.emove(game.print,game.health);
                 ghost2.emove(game.print,game.health);
+                if(dame::lv==3)
+                    boss1.emove(game.print,game.health);
                 if(abs(angle)==5)
                     v=-v;
                 angle+=v;
 
             }
-            charmove(e,game,sword_time,slime, ghost, ghost2);
+            charmove(e,game,sword_time,slime, ghost, ghost2,boss1);
             SDL_RenderClear(renderer);
-            SDL_Delay(30);
+            int delay=max((long long)(1000/dame::fps-(clock()-framestart)),0ll);
+            cout<<delay<<endl;
+            SDL_Delay(delay);
         }
     }
     return 0;

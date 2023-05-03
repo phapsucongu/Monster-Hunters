@@ -1,17 +1,18 @@
 #ifndef draw_h_
 #define draw_h_
 #include "enemy.h"
+#include "boss.h"
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
-const int step = 5;
+const int step = 3;
 bool init();
 class draw
 {
 public :
-    void left(enemy &slime, enemy &ghost,enemy &ghost2);
-    void right(enemy &slime, enemy &ghost,enemy &ghost2);
-    void up(enemy &slime, enemy &ghost,enemy &ghost2);
-    void down(enemy &slime, enemy &ghost,enemy &ghost2);
+    void left(enemy &slime, enemy &ghost,enemy &ghost2,BOSS &boss1);
+    void right(enemy &slime, enemy &ghost,enemy &ghost2,BOSS &boss1);
+    void up(enemy &slime, enemy &ghost,enemy &ghost2,BOSS &boss1);
+    void down(enemy &slime, enemy &ghost,enemy &ghost2,BOSS &boss1);
     void die();
     void nextframe();
     void reset();

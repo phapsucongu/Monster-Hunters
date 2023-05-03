@@ -84,7 +84,7 @@ void sword(enemy &slime, draw &game)
     game.cc_rect.x=0;
     destroy(game,slime);
 }
-void charmove(SDL_Event e, draw &game,int &sword_time,enemy &slime,enemy &ghost, enemy &ghost2)
+void charmove(SDL_Event e, draw &game,int &sword_time,enemy &slime,enemy &ghost, enemy &ghost2,BOSS &boss1)
 {
     SDL_PollEvent(&e);
     if(game.action)
@@ -111,19 +111,19 @@ void charmove(SDL_Event e, draw &game,int &sword_time,enemy &slime,enemy &ghost,
     if (state[SDL_SCANCODE_LEFT]||state[SDL_SCANCODE_A])
     {
 
-            game.left(slime,ghost,ghost2);
+            game.left(slime,ghost,ghost2,boss1);
     }
     if (state[SDL_SCANCODE_RIGHT]||state[SDL_SCANCODE_D])
     {
-        game.right(slime,ghost,ghost2);
+        game.right(slime,ghost,ghost2,boss1);
     }
     if (state[SDL_SCANCODE_UP]||state[SDL_SCANCODE_W])
     {
-        game.up(slime, ghost,ghost2);
+        game.up(slime, ghost,ghost2,boss1);
     }
     if (state[SDL_SCANCODE_DOWN]||state[SDL_SCANCODE_S])
     {
-       game.down(slime,ghost,ghost2);
+       game.down(slime,ghost,ghost2,boss1);
     }
     if (state[SDL_SCANCODE_N])
         game.score+=20;

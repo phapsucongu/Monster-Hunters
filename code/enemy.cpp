@@ -53,11 +53,6 @@ void enemy::emove(SDL_Rect print,double &health)
             health-=dame::e_dame;
             continue;
         }
-        if(collision(printf[i],rect)&&check[i])
-        {
-            health-=dame::e_dame;
-            continue;
-        }
         if(i%3==0)
         {
             if(abs(printf[i].x-print.x)>=abs(printf[i].y-print.y))
@@ -123,13 +118,7 @@ void enemy::emove(SDL_Rect print,double &health)
 }
 bool enemy::collision (SDL_Rect a,SDL_Rect b)
 {
-    a.x+=10;
-    a.w-=20;
-    a.y+=10;
-    a.x+=10;
-    a.w-=20;
-    a.y+=10;
-    a.h-=20;
+
     if(a.x>=b.x&&a.x<=b.x+b.w&&a.y>=b.y&&a.y<=b.y+b.h)
         return 1;
     if(a.x+a.w>=b.x&&a.x+a.w<=b.x+b.w&&a.y>=b.y&&a.y<=b.y+b.h)
@@ -142,17 +131,11 @@ bool enemy::collision (SDL_Rect a,SDL_Rect b)
 }
 void enemy::reset()
 {
-    x,y,num=0;
-    e_rect[e_num+1],printf[e_num+1];
+    num=0;
     for(int i=0; i<=e_num; i++)
     {
         check[i]= {0};
         printf[i]= {0,0,0,0};
 
     }
-
-}
-int main()
-{
-    return 0;
 }
