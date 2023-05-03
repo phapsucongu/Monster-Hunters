@@ -137,6 +137,9 @@ void render()
     frametime = SDL_GetTicks() - gamestart;
     SDL_SetRenderDrawColor(renderer,240, 189, 199, 1 );
     SDL_RenderFillRect(renderer,NULL);
+    SDL_Rect cur=game.cc_rect;
+    if(slime.attack||ghost.attack||ghost2.attack||boss1.attack)
+        game.cc_rect={0,48*18,55,55};
     if(game.movex>0)
         SDL_RenderCopy(renderer, character, &game.cc_rect,&game.print);
     else
@@ -146,6 +149,8 @@ void render()
     thanks_mau(renderer, game, mau, thanh_mau);
     draw_score(renderer, font, textColor, game.score);
     draw_time(renderer,font,textColor,frametime);
+    slime.attack=0;ghost.attack=0;ghost2.attack=0;boss1.attack=0;
+    game.cc_rect=cur;
     SDL_RenderPresent(renderer);
 }
 void but_pause()
@@ -314,12 +319,11 @@ int main( int argc, char* args[] )
                 if(abs(angle)==5)
                     v=-v;
                 angle+=v;
-
             }
             charmove(e,game,sword_time,slime, ghost, ghost2,boss1);
             SDL_RenderClear(renderer);
             int delay=max((long long)(1000/dame::fps-(clock()-framestart)),0ll);
-            cout<<delay<<endl;
+            //cout<<delay<<endl;
             SDL_Delay(delay);
         }
     }

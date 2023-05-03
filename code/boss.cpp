@@ -18,6 +18,7 @@ void BOSS::emove(SDL_Rect print,double &health)
     if(collision(boss_rect,rect)&&boss_health>0)
     {
         health-=dame::e_dame*2;
+        attack=1;
         return;
     }
     if(boss_rect.y>print.y)

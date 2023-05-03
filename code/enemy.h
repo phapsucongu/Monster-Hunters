@@ -13,6 +13,7 @@ public :
     SDL_Rect printf[e_num+1];
     int check[e_num+1]={0};
     int e_health=1;
+    int attack=0;
     bool collision (SDL_Rect a,SDL_Rect b);
 };
 #endif enemy_h_h;
