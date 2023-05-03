@@ -39,6 +39,9 @@
 		<Unit filename="code/enemy.h" />
 		<Unit filename="code/gameplay.cpp" />
 		<Unit filename="code/gameplay.h" />
+		<Unit filename="code/icon.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
 		<Unit filename="code/main.cpp" />
 		<Unit filename="code/menu.cpp" />
 		<Unit filename="code/menu.h" />
